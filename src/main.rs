@@ -1,9 +1,11 @@
+mod display;
+mod data;
+
 use display::Display;
-use data::connect;
 
 fn main() {
-    let conn = connect().unwrap();
+    let _conn = data::connect();
 
-    let dis = Display::new();
+    let mut dis = Display::new();
     dis.run();
 }

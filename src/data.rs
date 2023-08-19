@@ -1,12 +1,12 @@
-fn connect() -> Result<Connection, Box<dyn Error>> {
-    let mut conn = Connection::open("data.db")?;
-    conn.execute(
-        "CREATE TABLE IF NOT EXISTS data (
-            id INTEGER PRIMARY KEY,
-            name TEXT NOT NULL,
-            value TEXT NOT NULL
-        )",
-        [],
-    )?;
-    Ok(conn)
+use std::io::{stdout, Write};
+use curl::easy::Easy;
+
+pub fn connect() {
+    let mut easy = Easy::new();
+    easy.url("https://www.rust-lang.org/").unwrap();
+    easy.write_function(|data| {
+        stdout().write_all(data).unwrap();
+        Ok(data.len())
+    }).unwrap();
+    easy.perform().unwrap();
 }
