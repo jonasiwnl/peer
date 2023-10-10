@@ -2,12 +2,11 @@
 ## written in Go, because I need concurrency
 
 ## files
-`main.rs` - entry point\
-`display.rs` - handle tui frontend, displaying new data, and user input\
-`data.rs` - handle fetching and parsing network data
+`main.go` - entry point, frontend, user input, fout\
+`data.go` - handle fetching and parsing network data
 
 ## goals
 - [ ] connect to embedded device
 - [ ] show logs
 - [ ] pause, unpause logs
-- [ ] add ability to save to .txt
+- [x] add ability to save to .txt
