@@ -2,11 +2,14 @@
 ## written in Go, because I need concurrency
 
 ## files
-`main.go` - entry point, frontend, user input, fout\
-`data.go` - handle fetching and parsing network data
+`main.go` - entry point and testing\
+`peer.go` - peer struct: handles all TUI\
 
 ## goals
-- [ ] connect to embedded device
 - [ ] show logs
-- [ ] pause, unpause logs
+- [x] pause, unpause logs
 - [x] add ability to save to .txt
+- [ ] add cmg line args for output, data source, etc
+
+eventually,
+- [ ] connect to embedded device
