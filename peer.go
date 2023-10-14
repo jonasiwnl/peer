@@ -38,11 +38,25 @@ func (p *Peer) Run() {
 	controls.Text = "|q| Quit \t |p| Pause \t |s| Save"
 	controls.SetRect(0, 6, 33, 7)
 
-	ui.Render(para, controls)
+	display := widgets.NewParagraph()
+	display.Text = ""
+	display.SetRect(0, 8, 33, 20)
+
+	ui.Render(para, controls, display)
 	ticker := time.NewTicker(time.Second).C // TODO ticker time should be variable
 
 	for {
 		select {
+		case <-ticker:
+			if !p.paused {
+				// TODO read from channel, update, render
+				msg, ok := <-p.data
+				if ok {
+					display.Text = msg + "\n" + display.Text
+					ui.Render(display)
+				}
+			}
+
 		case e := <-ui.PollEvents():
 			switch e.ID {
 			case "q", "<C-c>": // press 'q' or 'C-c' to quit
@@ -56,19 +70,7 @@ func (p *Peer) Run() {
 			case "<Resize>":
 				// payload := e.Payload.(ui.Resize)
 				// width, height := payload.Width, payload.Height
-			}
-			// TODO We need another event for mouse clicks, switch selected
-
-		case <-ticker:
-			if !p.paused {
-				// TODO read from channel, update, render
-				msg, ok := <-p.data
-				if ok {
-					para := widgets.NewParagraph()
-					para.Text = msg
-					para.SetRect(0, 0, 25, 5)
-					ui.Render(para)
-				}
+				// TODO We need another event for mouse clicks, switch selected
 			}
 		}
 	}
