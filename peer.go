@@ -3,7 +3,6 @@ package main
 import (
 	"log"
 	"os"
-	"time"
 
 	ui "github.com/gizak/termui/v3"
 	"github.com/gizak/termui/v3/widgets"
@@ -43,20 +42,9 @@ func (p *Peer) Run() {
 	display.SetRect(0, 8, 33, 20)
 
 	ui.Render(para, controls, display)
-	ticker := time.NewTicker(time.Second).C // TODO ticker time should be variable
 
 	for {
 		select {
-		case <-ticker:
-			if !p.paused {
-				// TODO read from channel, update, render
-				msg, ok := <-p.data
-				if ok {
-					display.Text = msg + "\n" + display.Text
-					ui.Render(display)
-				}
-			}
-
 		case e := <-ui.PollEvents():
 			switch e.ID {
 			case "q", "<C-c>": // press 'q' or 'C-c' to quit
@@ -71,6 +59,12 @@ func (p *Peer) Run() {
 				// payload := e.Payload.(ui.Resize)
 				// width, height := payload.Width, payload.Height
 				// TODO We need another event for mouse clicks, switch selected
+			}
+		case msg, ok := <-p.data:
+			// TODO pausing ? a simple if statement causes panics
+			if ok {
+				display.Text = msg + "\n" + display.Text
+				ui.Render(display)
 			}
 		}
 	}

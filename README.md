@@ -7,14 +7,10 @@
 
 ## goals
 - [x] show logs
-- [x] pause, unpause logs
+- [ ] pause, unpause logs
 - [x] add ability to save to .txt
-- [ ] add cmg line args for output, data source, etc
-flags:
-    -o output file
-    -d data source (file, network, etc)
-    -e example
-    -h help
+- [x] add cmg line args for output, data source, etc
+- [ ] data source!
 
 eventually,
 - [ ] connect to embedded device
