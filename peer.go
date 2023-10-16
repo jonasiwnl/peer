@@ -43,6 +43,8 @@ func (p *Peer) Run() {
 
 	ui.Render(para, controls, display)
 
+	sink := []string{}
+
 	for {
 		select {
 		case e := <-ui.PollEvents():
@@ -50,6 +52,13 @@ func (p *Peer) Run() {
 			case "q", "<C-c>": // press 'q' or 'C-c' to quit
 				return
 			case "p":
+				if p.paused {
+					for _, msg := range sink {
+						display.Text = msg + "\n" + display.Text
+						ui.Render(display)
+					}
+					sink = []string{}
+				}
 				p.paused = !p.paused
 			case "s":
 				p.save()
@@ -61,7 +70,10 @@ func (p *Peer) Run() {
 				// TODO We need another event for mouse clicks, switch selected
 			}
 		case msg, ok := <-p.data:
-			// TODO pausing ? a simple if statement causes panics
+			if p.paused {
+				sink = append(sink, msg)
+				continue
+			}
 			if ok {
 				display.Text = msg + "\n" + display.Text
 				ui.Render(display)

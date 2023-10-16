@@ -1,3 +1,5 @@
+# Go dependencies
 go.sum
 
+# Peer output
 output.txt

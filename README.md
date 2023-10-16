@@ -7,9 +7,9 @@
 
 ## goals
 - [x] show logs
-- [ ] pause, unpause logs
-- [x] add ability to save to .txt
+- [x] pause, unpause logs
 - [x] add cmg line args for output, data source, etc
+- [ ] add ability to select logs and save to .txt
 - [ ] data source!
 
 eventually,
