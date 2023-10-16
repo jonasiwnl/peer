@@ -13,6 +13,11 @@ func exampleData(data chan string) {
 	time.Sleep(time.Second)
 	data <- "test2"
 	time.Sleep(time.Second * 3)
+	data <- "test3"
+	data <- "test4"
+	time.Sleep(time.Second)
+	data <- "test5"
+	time.Sleep(time.Second * 2)
 	close(data)
 }
 

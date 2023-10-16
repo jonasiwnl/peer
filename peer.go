@@ -29,9 +29,9 @@ func (p *Peer) Run() {
 	}
 	defer ui.Close()
 
-	para := widgets.NewParagraph()
-	para.Text = "PEER"
-	para.SetRect(0, 0, 25, 5)
+	header := widgets.NewParagraph()
+	header.Text = "PEER"
+	header.SetRect(0, 0, 25, 5)
 
 	controls := widgets.NewParagraph()
 	controls.Text = "|q| Quit \t |p| Pause \t |s| Save"
@@ -41,7 +41,7 @@ func (p *Peer) Run() {
 	display.Text = ""
 	display.SetRect(0, 8, 33, 20)
 
-	ui.Render(para, controls, display)
+	ui.Render(header, controls, display)
 
 	sink := []string{}
 
@@ -58,8 +58,12 @@ func (p *Peer) Run() {
 						ui.Render(display)
 					}
 					sink = []string{}
+					header.Text = "PEER"
+				} else {
+					header.Text = "PEER\n (paused)"
 				}
 				p.paused = !p.paused
+				ui.Render(header)
 			case "s":
 				p.save()
 
