@@ -10,7 +10,7 @@
 - [x] pause, unpause logs
 - [x] add cmg line args for output, data source, etc
 - [ ] add ability to select logs and save to .txt
-- [ ] data source!
+- [ ] add examples for various data sources
 
 eventually,
 - [ ] connect to embedded device
